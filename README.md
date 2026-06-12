@@ -2,7 +2,8 @@
 QGIS plugin for HuHoLa
 
 Reimplements the [HuHoLa microtopography model](https://github.com/bravemaster3/huhola)
-as a native QGIS Processing plugin backed by WhiteboxTools.
+as a QGIS Processing plugin. It integrates directly into the QGIS Processing Toolbox and is
+backed by WhiteboxTools.
 
 **Reference:** Noumonvi, K.D., Havertz, N.H., Bohlin, J., van der Linden, S., Nilsson, M.B. & Peichl, M. (2025). HuHoLa: A novel Hummock-Hollow-Lawn mire microtopography modelling approach. *Ecological Modelling*. [doi.org/10.1016/j.ecolmodel.2025.111001](https://www.sciencedirect.com/science/article/pii/S0304380025001978)
 
@@ -32,43 +33,57 @@ The plugin produces up to three rasters:
 
 ## Installation
 
-### 1. Download WhiteboxTools binary
-
-Download the WhiteboxTools executable for your platform from:
-https://www.whiteboxgeo.com/download-whiteboxtools/
-
-Extract the archive and note the folder path (e.g. `C:\WhiteboxTools\` or `/opt/WhiteboxTools/`).
-
 No Python packages need to be installed — the plugin calls the WhiteboxTools binary
 directly and uses only libraries bundled with QGIS (`osgeo.gdal`, `numpy`).
 
-### 2. Copy the plugin folder into QGIS
+### Option 1 (recommended): Install from ZIP within QGIS
 
-Copy the `huhola_qgis/` subfolder (not the repository root) into your QGIS user plugins directory:
+1. Download `huhola_qgis.zip` from the [latest release](https://github.com/bravemaster3/huhola_qgis/releases/latest).
+2. Open QGIS.
+3. Go to **Plugins → Manage and Install Plugins… → Install from ZIP**.
+4. Browse to the downloaded `huhola_qgis.zip` and click **Install Plugin**.
+5. The plugin is enabled automatically. If not, switch to the **Installed** tab,
+   search for **HuHoLa**, and check the box to enable it.
 
-- **Windows:** `%APPDATA%\QGIS\QGIS3\profiles\default\python\plugins\`
-- **macOS/Linux:** `~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/`
+### Option 2: Copy the plugin folder manually
 
-The result should look like:
+1. Download and extract `huhola_qgis.zip` (or clone this repository).
+2. Copy the `huhola_qgis/` subfolder (not the repository root) into your QGIS user plugins directory:
+   - **Windows:** `%APPDATA%\QGIS\QGIS3\profiles\default\python\plugins\`
+   - **macOS/Linux:** `~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/`
 
-```
-plugins/
-└── huhola_qgis/
-    ├── __init__.py
-    ├── metadata.txt
-    ├── huhola_plugin.py
-    ├── huhola_provider.py
-    ├── huhola_algorithm.py
-    ├── huhola_classification.qml
-    └── icon.png
-```
+   The result should look like:
 
-### 3. Enable the plugin in QGIS
+   ```
+   plugins/
+   └── huhola_qgis/
+       ├── __init__.py
+       ├── metadata.txt
+       ├── huhola_plugin.py
+       ├── huhola_provider.py
+       ├── huhola_algorithm.py
+       ├── huhola_classification.qml
+       └── icon.png
+   ```
 
-1. Open QGIS.
-2. Go to **Plugins → Manage and Install Plugins…**
-3. Search for **HuHoLa** and check the box to enable it.
-4. The algorithm appears in the **Processing Toolbox** under **HuHoLa → HuHoLa Microtopography Classification**.
+3. Open QGIS, go to **Plugins → Manage and Install Plugins… → Installed**,
+   search for **HuHoLa**, and check the box to enable it.
+
+After installation (either option), the tools appear in the **Processing Toolbox** under
+**HuHoLa → HuHoLa Microtopography Classification**.
+
+### Set up WhiteboxTools
+
+The plugin needs the WhiteboxTools binary to run.
+
+1. Download the WhiteboxTools executable for your platform from
+   https://www.whiteboxgeo.com/download-whiteboxtools/
+2. Extract the archive and note the folder containing the binary
+   (e.g. `C:\WhiteboxTools\` or `/opt/WhiteboxTools/`).
+3. When you run a HuHoLa algorithm, set the **WhiteboxTools executable folder**
+   parameter to that folder. This parameter appears on every run, but after the first
+   successful run the field is pre-filled with your last-used path, so you normally just
+   leave it as-is (you can still change it at any time).
 
 ---
 
